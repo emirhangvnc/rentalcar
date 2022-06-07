@@ -14,8 +14,8 @@ import { ModelComponent } from './components/model/model.component';
     AppComponent,
     BrandComponent,
     ColorComponent,
-    NaviComponent,
     ModelComponent,
+    NaviComponent
   ],
   imports: [
     BrowserModule,

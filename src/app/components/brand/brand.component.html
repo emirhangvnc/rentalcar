@@ -1,8 +1,6 @@
-<div class="list-group">
-  <button type="button" class="list-group-item list-group-item-action" aria-current="true">Bütün Markalar</button>
-  <li>
-  </li>
-  <tr *ngFor="let brand of brands">
-    <td>{{brand.brandName}}</td>
-   </tr>
-</div>
+<ul class="list-group">
+  <li [class]="getAllBrandClass()" routerLink="/models">Tüm Ürünler</li>
+   <li (click)="setCurrentBrand(brand)" routerLink="/models/brand/{{brand.brandId}}" *ngFor="let brand Of brands"
+     [class]="getCurrentBrandClass(brand)">{{brand.brandName}}</li>
+  </ul>
+  <h5 *ngIf="currentBrand">{{currentBrand.brandName}} Seçili</h5>

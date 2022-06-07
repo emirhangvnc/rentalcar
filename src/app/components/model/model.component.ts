@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Model } from 'src/app/models/model/model';
+import { Model } from 'src/app/models/model';
+import { ActivatedRoute } from '@angular/router';
 import { ModelService } from 'src/app/services/modelService/model.service';
 
 @Component({
@@ -10,15 +11,27 @@ import { ModelService } from 'src/app/services/modelService/model.service';
 export class ModelComponent implements OnInit {
   models:Model[]=[];
   dataLoaded=false;
-  constructor(private modelService:ModelService) { }
+  constructor(private modelService:ModelService,private activatedRoute:ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.getModel();
-  }
-  getModel(){
-    this.modelService.getModel().subscribe(response=>{
-      this.models=response.data
-      this.dataLoaded=true;
+    this.activatedRoute.params.subscribe(params=>{
+      if(params["brandId"]){
+        this.getModelsByBrand(params["brandId"])
+      }else{
+        this.getModels()
+    }
     })
   }
+  getModels() {
+   this.modelService.getModels().subscribe(response=>{
+       this.models = response.data
+        this.dataLoaded = true;
+    })   
+ }
+ getModelsByBrand(brandId:number) {
+  this.modelService.getModelsByBrand(brandId).subscribe(response=>{
+    this.models = response.data
+    this.dataLoaded = true;
+  })   
+ }
 }

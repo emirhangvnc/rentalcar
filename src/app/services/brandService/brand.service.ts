@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http'
 import { Observable } from 'rxjs';
-import { BrandResponseModel } from 'src/app/models/brand/brandresponseModel';
+import { ListResponseModel } from 'src/app/models/listResponseModel';
+import { Brand } from 'src/app/models/brand';
 
 @Injectable({
     providedIn: 'root'
@@ -10,13 +11,9 @@ import { BrandResponseModel } from 'src/app/models/brand/brandresponseModel';
     apiUrl ="https://localhost:44326/api/";
     constructor(private httpClient:HttpClient) { }
   
-    getBrand():Observable<BrandResponseModel>{
+    getBrands():Observable<ListResponseModel<Brand>>{
      let newFile=this.apiUrl+"brands/getAll";
-    return this.httpClient.get<BrandResponseModel>(newFile);
+    return this.httpClient.get<ListResponseModel<Brand>>(newFile);
      }
-     getByBrandId(brandId:number):Observable<BrandResponseModel>{
-      let newFile=this.apiUrl+"brands/getByBrandId?brandIs= "+brandId;
-      return this.httpClient.get<BrandResponseModel>(newFile);
-      }
   }
   
